@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CreatorHub AI - Potencia tus Redes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+    </style>
+</head>
+<body class="bg-slate-950 text-white min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="p-6 flex justify-between items-center max-w-6xl mx-auto w-full">
+        <div class="flex items-center gap-2">
+            <div class="bg-blue-600 p-2 rounded-lg">
+                <i class="fas fa-bolt text-xl"></i>
+            </div>
+            <h1 class="text-2xl font-bold tracking-tight">CreatorHub <span class="text-blue-500">AI</span></h1>
+        </div>
+        <nav>
+            <a href="https://github.com/RakkoTV" class="hover:text-blue-400 transition-colors">GitHub</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex flex-col items-center justify-center px-4 py-12">
+        <div class="max-w-3xl w-full space-y-8 text-center">
+            <h2 class="text-4xl md:text-6xl font-extrabold bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">
+                Crea contenido viral en segundos
+            </h2>
+            <p class="text-slate-400 text-lg max-w-xl mx-auto">
+                Escribe tu idea y deja que la IA genere el post perfecto para cada una de tus redes sociales.
+            </p>
+
+            <div class="glass p-6 rounded-2xl space-y-4">
+                <textarea id="userInput" rows="4" 
+                    class="w-full bg-slate-900/50 border border-slate-700 rounded-xl p-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                    placeholder="Escribe el tema o idea para tu publicación..."></textarea>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <button onclick="generate('X')" class="flex items-center justify-center gap-2 bg-white text-black font-semibold py-3 px-6 rounded-xl hover:bg-slate-200 transition-all">
+                        <i class="fab fa-x-twitter"></i> Post para X
+                    </button>
+                    <button onclick="generate('Threads')" class="flex items-center justify-center gap-2 bg-slate-800 text-white font-semibold py-3 px-6 rounded-xl hover:bg-slate-700 transition-all border border-slate-700">
+                        <i class="fab fa-threads"></i> Threads
+                    </button>
+                    <button onclick="generate('Instagram')" class="flex items-center justify-center gap-2 bg-gradient-to-tr from-yellow-500 via-red-500 to-purple-500 text-white font-semibold py-3 px-6 rounded-xl hover:opacity-90 transition-all">
+                        <i class="fab fa-instagram"></i> Instagram
+                    </button>
+                </div>
+            </div>
+
+            <!-- Output Area -->
+            <div id="outputContainer" class="hidden glass p-6 rounded-2xl text-left space-y-4 animate-fade-in">
+                <div class="flex justify-between items-center">
+                    <span id="platformName" class="text-blue-500 font-bold uppercase tracking-widest text-sm">X POST</span>
+                    <button onclick="copyToClipboard()" class="text-slate-400 hover:text-white transition-colors">
+                        <i class="far fa-copy"></i> Copiar
+                    </button>
+                </div>
+                <p id="outputText" class="text-slate-200 leading-relaxed"></p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="p-8 text-center text-slate-500 text-sm border-t border-slate-900">
+        <p>&copy; 2024 CreatorHub AI. Desarrollado por <a href="#" class="text-blue-500 hover:underline">Ramiro Silva</a>.</p>
+    </footer>
+
+    <script>
+        function generate(platform) {
+            const input = document.getElementById('userInput').value;
+            if (!input) {
+                alert('Por favor, escribe una idea primero.');
+                return;
+            }
+
+            const outputContainer = document.getElementById('outputContainer');
+            const platformName = document.getElementById('platformName');
+            const outputText = document.getElementById('outputText');
+
+            platformName.innerText = `${platform} Post`;
+            outputContainer.classList.remove('hidden');
+
+            // Mock generation logic
+            let result = "";
+            if (platform === 'X') {
+                result = `🚀 AI INSIGHT: ${input}\n\nEste es un post optimizado para X (Twitter) sobre tu idea. ¡Corto, directo y viral! #AI #Tech #Innovation`;
+            } else if (platform === 'Threads') {
+                result = `🧵 Hilo de Threads:\n\n${input}\n\n1/3 ¿Qué opinan de esto? La IA está cambiando las reglas del juego. Abro debate abajo. 👇`;
+            } else {
+                result = `📸 Instagram Post:\n\n${input}\n\n.\n.\n.\n#CreatorHub #Innovation #SocialMedia #Marketing #IA`;
+            }
+
+            outputText.innerText = result;
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+
+        function copyToClipboard() {
+            const text = document.getElementById('outputText').innerText;
+            navigator.clipboard.writeText(text);
+            alert('¡Copiado al portapapeles!');
+        }
+    </script>
+</body>
+</html>
